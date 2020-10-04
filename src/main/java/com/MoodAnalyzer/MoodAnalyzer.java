@@ -13,16 +13,24 @@ public class MoodAnalyzer {
 		this.message = message;
 	}
 	
-	public String analyseMood() {
+	
+	
+	public String analyseMood() throws MoodAnalysisException{
+		InvalidMoods mood1 = InvalidMoods.NULL;
+		InvalidMoods mood2 = InvalidMoods.EMPTY;
+		
 		try {
 			if(message.contains("sad"))
 				return "SAD";
-			else
-				return "HAPPY";
 		}
 		catch(NullPointerException e) {
-			return "HAPPY";
+			throw new MoodAnalysisException("Mood can not be "+mood1);
 		}
+		
+		if(message == "")
+			throw new MoodAnalysisException("Mood can not be "+mood2);
+		
+		return "HAPPY";
 	}
 	
 }
