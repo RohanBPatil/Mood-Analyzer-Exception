@@ -1,5 +1,7 @@
 package com.MoodAnalyzer;
 
+import com.MoodAnalyzer.MoodAnalysisException.InvalidMoods;
+
 public class MoodAnalyzer {
 	public String message;
 	
@@ -16,19 +18,16 @@ public class MoodAnalyzer {
 	
 	
 	public String analyseMood() throws MoodAnalysisException{
-		InvalidMoods mood1 = InvalidMoods.NULL;
-		InvalidMoods mood2 = InvalidMoods.EMPTY;
-		
 		try {
-			if(message.contains("sad"))
+			if(message.toLowerCase().contains("sad"))
 				return "SAD";
 		}
 		catch(NullPointerException e) {
-			throw new MoodAnalysisException("Mood can not be "+mood1);
+			throw new MoodAnalysisException(MoodAnalysisException.InvalidMoods.NULL, "Mood can not be Null");
 		}
 		
-		if(message == "")
-			throw new MoodAnalysisException("Mood can not be "+mood2);
+		if(message.length() == 0)
+			throw new MoodAnalysisException(MoodAnalysisException.InvalidMoods.EMPTY, "Mood can not be Empty");
 		
 		return "HAPPY";
 	}

@@ -14,8 +14,8 @@ class MoodAnalyzerTest {
 		try {
 			assertEquals("SAD", moodAnalyzer.analyseMood());
 		}
-		catch(MoodAnalysisException e) {
-			e.printStackTrace();
+		catch(MoodAnalysisException moodAnalysisException) {
+			moodAnalysisException.printStackTrace();
 		}
 	}
 	
@@ -26,8 +26,8 @@ class MoodAnalyzerTest {
 		try {
 			assertEquals("HAPPY", moodAnalyzer.analyseMood());
 		}
-		catch(MoodAnalysisException e) {
-			e.printStackTrace();
+		catch(MoodAnalysisException moodAnalysisException) {
+			moodAnalysisException.printStackTrace();
 		}
 	}
 	
@@ -35,24 +35,20 @@ class MoodAnalyzerTest {
 	@Test
 	void givenNull_shouldThrowExceptionAndInform() {
 		moodAnalyzer = new MoodAnalyzer(null);
-		try {
-			assertEquals("HAPPY", moodAnalyzer.analyseMood());
-		}
-		catch(MoodAnalysisException e) {
-			System.out.println(e);
-		}
+		MoodAnalysisException exception = assertThrows(MoodAnalysisException.class, () -> {
+			moodAnalyzer.analyseMood();
+		});
+		assertEquals(MoodAnalysisException.InvalidMoods.NULL, exception.moodType);
 	}
 	
 	// empty input test case
 	@Test
 	void givenEmpty_shouldThrowExceptionAndInform() {
 		moodAnalyzer = new MoodAnalyzer("");
-		try {
-			assertEquals("HAPPY", moodAnalyzer.analyseMood());
-		}
-		catch(MoodAnalysisException e) {
-			System.out.println(e);
-		}
+		MoodAnalysisException exception = assertThrows(MoodAnalysisException.class, () -> {
+			moodAnalyzer.analyseMood();
+		});
+		assertEquals(MoodAnalysisException.InvalidMoods.EMPTY, exception.moodType);
 	}
 
 }
